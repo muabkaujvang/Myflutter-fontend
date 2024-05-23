@@ -11,10 +11,8 @@ class _page1State extends State<page1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-         appBar: AppBar(
-          title: Text('The first page'),
-          backgroundColor: Colors.blue[200],
-          centerTitle: true, 
+         body: Center(
+          child: Text('This is page1'),
          ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/dashboard_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -91,7 +92,20 @@ class _LoginPageState extends State<LoginPage> {
                           width: double.infinity,
                           height: 45,
                           child: ElevatedButton(
-                              onPressed: () {}, child: Text('Login')),
+                              onPressed: () {
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => DashboardPage(),
+                                //   ),
+                                // );
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DashboardPage()),
+                                    (route) => false);
+                              },
+                              child: Text('Login')),
                         ),
                       ],
                     ),
