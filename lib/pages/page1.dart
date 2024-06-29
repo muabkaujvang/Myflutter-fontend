@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
-class page1 extends StatefulWidget {
-  const page1({super.key});
+class Page1 extends StatefulWidget {
+  const Page1({super.key});
 
   @override
-  State<page1> createState() => _page1State();
+  State<Page1> createState() => _Page1State();
 }
 
-class _page1State extends State<page1> {
+class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-         body: Center(
-          child: Text('This is page1'),
-         ),
+      appBar: AppBar(
+        title: Text('This is page 1'),
+        backgroundColor: Colors.blue[200],
+      ),
     );
   }
 }

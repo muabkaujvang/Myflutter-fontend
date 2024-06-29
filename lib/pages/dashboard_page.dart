@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/page1.dart';
+import 'package:flutter_application_1/pages/photo_page.dart';
 import 'package:flutter_application_1/pages/setting_page.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -15,18 +16,12 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard'),
-        backgroundColor: Colors.blue[200],
-      ),
       body: Builder(builder: (context) {
         if (index == 1) {
-          return page1();
+          return Page1();
         }
         if (index == 2) {
-          return const Center(
-            child: Text('searchPage'),
-          );
+          return PhotoPage();
         }
         if (index == 3) {
           return Settingpage();
