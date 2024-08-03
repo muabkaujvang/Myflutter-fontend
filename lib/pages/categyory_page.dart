@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/categyory_model_page.dart';
+import 'package:flutter_application_1/model/category_model_page.dart';
 import 'package:flutter_application_1/pages/add_categyory_page.dart';
 
 class CategyoryPage extends StatefulWidget {
@@ -10,7 +10,7 @@ class CategyoryPage extends StatefulWidget {
   State<CategyoryPage> createState() => _CategyoryPageState();
 }
 
-List<CategyoryModelPage> cateList = [];
+List<CategyoryPage> cateList = [];
 
 class _CategyoryPageState extends State<CategyoryPage> {
   @override
@@ -66,7 +66,7 @@ class _CategyoryPageState extends State<CategyoryPage> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(cateList[Index].name),
+                        child: Text('cateList[Index].'),
                       ),
                     ],
                   ),

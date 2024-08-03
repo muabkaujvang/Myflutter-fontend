@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/api_path.dart';
 import 'package:flutter_application_1/pages/dashboard_page.dart';
 import 'package:flutter_application_1/pages/login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({super.key});
@@ -14,7 +18,6 @@ class SplashScreenPage extends StatefulWidget {
 class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     onInitData();
   }
@@ -23,29 +26,73 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   Future<void> onInitData() async {
     try {
-      await Future.delayed(Duration(seconds: 3));
-      String? username = await storage.read(key: 'username');
-      if (username != null) {
-        Navigator.push(
+      String? token = await storage.read(key: 'token');
+      print(
+          'Token: $token'); // Debugging line to check if token is read correctly
+
+      if (token == null) {
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => DashboardPage(),
+            builder: (context) => const LoginPage(),
           ),
+          (route) => false,
         );
+        return;
+      }
+
+      var headers = {
+        'Authorization': 'Bearer $token'
+      }; // Ensure Bearer keyword is used
+      var request =
+          http.Request('GET', Uri.parse(ApiPath.BASE_URL + 'validate-token'));
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      print(
+          'Response status: ${response.statusCode}'); // Debugging line to check status code
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        print('Response body: $body'); // Debugging line to check response body
+
+        if (body['success']) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DashboardPage(),
+            ),
+            (route) => false,
+          );
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+            (route) => false,
+          );
+        }
       } else {
-        Navigator.push(
+        print(
+            'Response reasonPhrase: ${response.reasonPhrase}'); // Debugging line for error message
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginPage(),
+            builder: (context) => const LoginPage(),
           ),
+          (route) => false,
         );
       }
     } catch (e) {
-       Navigator.push(
+      print(
+          'Error during token validation: $e'); // Debugging line for exception
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginPage(),
+          builder: (context) => const LoginPage(),
         ),
+        (route) => false,
       );
     }
   }
@@ -62,7 +109,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               'assets/image/shopingIcon.webp',
               width: 150,
             ),
-            CircularProgressIndicator(),
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors
+                  .white), // Optional: Set a color for the progress indicator
+            ),
           ],
         ),
       ),

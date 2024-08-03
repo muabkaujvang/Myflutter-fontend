@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/api_path.dart';
+import 'package:flutter_application_1/pages/view_photo.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -69,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Positioned(
-                    top: 30,  
+                    top: 30,
                     left: 0,
                     right: 0,
                     child: Container(
@@ -84,14 +85,49 @@ class _ProfilePageState extends State<ProfilePage> {
                               border: Border.all(color: Colors.blue, width: 2),
                               color: Colors.grey,
                               borderRadius: BorderRadius.circular(100)),
-                          child: imageUrl == null
-                              ? Container()
-                              : ClipRRect(
-                                child: Image.network(
-                                    '${ApiPath.PROFILE}${imageUrl}', fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50),
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Positioned.fill(
+                                child: Container(
+                                  child: imageUrl == null
+                                      ? Container()
+                                      : GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ViewPhoto(
+                                                          imageUrl: '${ApiPath.PROFILE}${imageUrl}',
+                                                        )));
+                                          },
+                                          child: ClipRRect(
+                                            child: Container(
+                                              child: Image.network(
+                                                '${ApiPath.PROFILE}${imageUrl}',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          ),
+                                        ),
+                                ),
                               ),
+                              Positioned(
+                                bottom: 0,
+                                right: -5,
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey[200],
+                                  radius: 15,
+                                  child: Icon(
+                                    Icons.camera_alt_outlined,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ))

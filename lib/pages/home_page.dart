@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/menu_model.dart';
 import 'package:flutter_application_1/pages/categyory_page.dart';
 import 'package:flutter_application_1/pages/product.dart';
+import 'package:flutter_application_1/pages/stock_page.dart';
 import 'package:flutter_application_1/pages/users_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         color: Colors.blue,
         size: 30,
       ),
-      page: Container(),
+      page: StockPage(),
     ),
     MenuModel(
       id: 6,

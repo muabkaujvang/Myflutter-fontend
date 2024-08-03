@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/cate_textformfeil.dart';
-import 'package:flutter_application_1/model/categyory_model_page.dart';
+import 'package:flutter_application_1/model/category_model_page.dart';
 import 'package:flutter_application_1/pages/categyory_page.dart';
 
 class AddCategyoryPage extends StatefulWidget {
@@ -24,12 +24,7 @@ class _AddCategyoryPageState extends State<AddCategyoryPage> {
       formKey.currentState!.save();
 
       try {
-        cateList.add(
-          CategyoryModelPage(
-            id: 1,
-            name: nameCtrl.text,
-          ),
-        );
+        
       } catch (e) {}
       Navigator.pop(context);
     }
